@@ -1,0 +1,53 @@
+/* 중간 바디 */
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38.19px;
+}
+.text {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 17.9px;
+}
+input::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.71px;
+}
+.body input {
+    width: 355px;
+    height: 33px;
+}
+.helper {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+    color: #FF0000;
+}
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-btn {
+    width: 355px;
+    height: 33px;
+    color: white;
+}
+.btn-inactive {
+    background-color: #ACA0EB;}
+.btn-active {
+    background-color: #7F6AEE;
+}
+.sign-in {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.71px;
+    text-align: center;
+}

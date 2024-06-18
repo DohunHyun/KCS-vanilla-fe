@@ -1,0 +1,149 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+hr {
+    width: 1920px;
+    border: 0;
+    height: 1px;
+    background-color: black;
+}
+.inbody-hr{
+    width: 592px;
+    border-width: 1px;
+    background-color: rgba(0,0,0,0.16);
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 560px;
+    height: 104px;
+}
+.header-text {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    text-align: center;
+}
+#prev-btn {
+    visibility: visible;
+}
+#header-profile {
+    visibility: visible;
+}
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 570px;
+}
+.title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 31.2px;
+}
+.post-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.writer-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+.writer-info {
+    display: flex;
+    flex-direction: row;
+}
+.writer-name {
+    margin-left: 10px;
+}
+.write-time {
+    margin-left: 20px;
+}
+.btn {
+    width: 50px;
+    height: 27px;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #ACA0EB;
+    background-color: rgba(0,0,0,0);
+}
+.post-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.post-img {
+    width: 544px;
+    /* height: 306; */
+}
+.post-content {
+    align-self: flex-start;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 21.15px;
+}
+.info {
+    width: 116px;
+    height: 77px;
+    border-radius: 16px;
+    background-color: #D9D9D9;
+    text-align: center;
+    margin: 5px;
+}
+.comment-write {
+    display: flex;
+    flex-direction: column;
+    width: 592px;
+    height: 169px;
+    background-color: white;
+    border-radius: 20px;
+}
+input {
+    width: 572px;
+    height: 90px;
+    border-width: 0;
+    padding: 10px;
+}
+.comment-btn {
+    width: 138px;
+    height: 39px;
+    border-radius: 16px;
+    border-width: 0;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+}
+.btn-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 572px;
+}
+.comment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.cmt-writer-info {
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+}

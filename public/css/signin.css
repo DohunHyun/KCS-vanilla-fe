@@ -1,0 +1,34 @@
+#prev-btn {
+    visibility: visible;
+}
+.profile-default {
+    width: 149px;
+    height: 149px;
+    border-radius: 50%;
+    background-color: #C4C4C4;
+    text-align: center;
+    line-height: 149px;
+}
+#profile-img {
+    width: 149px;
+    height: 149px;
+    border-radius: 50%;
+    display: none;
+}
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#signin-btn {
+    width: 355px;
+    height: 33px;
+    border-radius: 4px;
+    color: white;
+    border-width: 0;
+}
+.btn-inactive {
+    background-color: #ACA0EB;}
+.btn-active {
+    background-color: #7F6AEE;
+}

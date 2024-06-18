@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/signin.css">
+    <title>회원가입</title>
+</head>
+<body>
+    <section>
+        <div class="header">
+            <div id="prev-btn"><</div>
+            <div class="header-text">
+                <p>아무 말 대잔치</p>
+            </div>
+            <div id="header-profile">
+                <img id="header-img" src="../sources/profile_img.jpeg">
+                <div id="drop-down" style="display: none;">
+                    <div class="drop-down-box">
+                        <a href="/profileEdit">회원정보수정</a>
+                    </div>
+                    <div class="drop-down-box">
+                        <a href="/passwordEdit">비밀번호수정</a>
+                    </div>
+                    <div class="drop-down-box">
+                        <a>로그아웃</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="horizontal-rule"/>
+        <form class="body" onsubmit="return checkForm()">
+            <div class="input">
+                <p class="title">회원가입</p>
+                <div>
+                    <p class="text">프로필 사진</p>
+                    <p id="profile-helper" class="helper">* 프로필 사진을 추가해주세요.</p>
+                    <div class="center">
+                        <div class="profile-div">
+                            <div class="profile-default">+</div>
+                            <img id="profile-img">
+                        </div>
+                        <input id="profile-img-btn" type="file" accept="image/*" style="display: none;">
+                    </div>
+                    <p class="text">이메일*</p>
+                    <input id="email-input" type="email" placeholder="이메일을 입력하세요">
+                    <p id="email-helper" class="helper">* 이메일을 입력해주세요.</p>
+                    <p class="text">비밀번호*</p>
+                    <input id="password-input" type="password" placeholder="비밀번호를 입력하세요">
+                    <p id="password-helper" class="helper">* 비밀번호를 입력해주세요.</p>
+                    <p class="text">비밀번호 확인*</p>
+                    <input id="passwordCheck-input" type="password" placeholder="비밀번호를 입력하세요">
+                    <p id="passwordCheck-helper" class="helper">* 비밀번호를 한번 더 입력해주세요.</p>
+                    <p class="text">닉네임*</p>
+                    <input id="nickname-input" type="text" placeholder="닉네임을 입력하세요">
+                    <p id="nickname-helper" class="helper">* 닉네임을 입력해주세요.</p>
+                </div>
+            </div>
+            <div class="button">
+                <button id="signin-btn" class="btn-inactive">회원가입</button></br>
+                <a class="log-in" href="/login">로그인하러 가기</a>
+            </div>
+        </form>
+    </section>
+    <script type="text/javascript" src="../js/signin.js"></script>
+</body>
+</html>

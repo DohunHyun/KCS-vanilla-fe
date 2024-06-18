@@ -1,0 +1,122 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+hr {
+    width: 1920px;
+    border: 0;
+    height: 1px;
+    background-color: black;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 560px;
+    height: 104px;
+}
+.header-text {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    text-align: center;
+}
+#prev-btn {
+    visibility: visible;
+}
+#header-profile {
+    visibility: visible;
+}
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 570px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 31.2px;
+    text-align: center;
+}
+.title2 {
+    font-weight: 700px;
+    font-size: 15px;
+    line-height: 17.9px;
+}
+.input-box {
+    width: 570px;
+    height: 33px;
+    border-radius: 4px;
+    /* border: 1px; */
+    border-color: black;
+}
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+textarea {
+    width: 570px;
+    height: 200px;
+    border-radius: 4px;
+}
+.helper-text {
+    margin-top: 5px;
+    color: red;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+    align-self: flex-start;
+}
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+.file-btn {
+    width: 68px;
+    height: 29px;
+    border-radius: 4px;
+    background-color: #D9D9D9;
+}
+.file-msg {
+    margin: 10px;
+}
+.filebox label {
+    display: inline-block;
+    width: 68px;
+    height: 29px;
+    border-radius: 4px;
+    background-color: #D9D9D9;
+    border: 1px solid ;
+    vertical-align: middle;
+    text-align: center;
+}
+.filebox p {
+    display: inline-block;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+.submit-btn {
+    width: 355px;
+    height: 33px;
+    border-radius: 4px;
+    background-color: #ACA0EB;
+    color: white;
+    border: 0;
+    margin: 50px;
+}
+.btn-inactive {
+    background-color: #ACA0EB;}
+.btn-active {
+    background-color: #7F6AEE;
+}
