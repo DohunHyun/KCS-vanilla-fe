@@ -17,7 +17,8 @@ writeBtn.addEventListener('click', () => {
     location.href='/postWrite';
 })
 
-fetch("http://localhost:3001/postList")
+// Post 리스트 가져오기
+fetch("http://localhost:8080/posts")
     .then( res => res.json() )
     .then( item => {
         console.log(item);
@@ -31,14 +32,14 @@ const createPostListHTML = (item) => {
             <div class="post-detail">
                 <div class="post-title">${item.title}</div>
                 <div class="post-info">
-                    <p class="post-reaction">좋아요 ${numFormat(item.like_cnt)} 댓글 ${numFormat(item.comment_cnt)} 조회수 ${numFormat(item.view_cnt)}</p>
+                    <p class="post-reaction">좋아요 ${numFormat(item.likeCnt)} 댓글 ${numFormat(item.commentCnt)} 조회수 ${numFormat(item.viewCnt)}</p>
                     <p class="post-time">${item.time}</p>
                 </div>
             </div>
             <hr class="post-hr">
             <div class="post-writer">
-                <img src="./sources/${item.image}">
-                <p class="writer-name">${item.nickname}</p>
+                <img src="./sources/${item.userImage}">
+                <p class="writer-name">${item.userNickname}</p>
             </div>
         </article>
     `;
