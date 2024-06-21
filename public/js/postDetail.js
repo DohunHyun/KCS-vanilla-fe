@@ -52,11 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 댓글 정보 불러오기
-    fetch( `http://localhost:3001/comment/${postId}` )
+    fetch( `http://localhost:8080/posts/${postId}/comments` )
     .then( res => res.json() )
     .then( items => {
-        console.log(items);
-        createComment(items.filter(item => item.post_id == postId));
+        createComment(items.filter(item => item.postId == postId));
     }).then(()=>init());
 
     const createComment = (comments) => {
@@ -70,11 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return `
             <div id="comment-${item.id}" class="comment">
                 <div class="comment-info">
-                    <img class="writer-img" src="${item.image}">
+                    <img class="writer-img" src="${item.userImage}">
                     <div class="comment-text">
                         <div class="cmt-writer-info">
                             <div>
-                                <p><b>${item.nickname}</b></p>
+                                <p><b>${item.userNickname}</b></p>
                             </div>
                             <div>
                                 <p>${item.time}</p>
