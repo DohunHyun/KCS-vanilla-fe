@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const postId = new URLSearchParams(window.location.search).get('postId');
+    const postId = window.location.pathname.split('/')[2];
 
     // 게시글 내용 불러오기
-    fetch(`http://localhost:3001/postDetail/${postId}`)
+    fetch(`http://localhost:8080/posts/${postId}`)
         .then( res => res.json() )
         .then( items => {
             const container = document.getElementById('post');
-            container.innerHTML = items.map(item => createPostDetail(item)).join("");
+            container.innerHTML = createPostDetail(items);
         });
 
     const createPostDetail = item => {
@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="post-header">
                 <div class="writer-info">
                     <div class="writer-img">
-                        <img class="writer-img" src="../sources/${item.user_image}">
+                        <img class="writer-img" src="../sources/${item.userImage}">
                     </div>
                     <div class="writer-name">
-                        <p id='writer-name'><b>${item.nickname}</b></p>
+                        <p id='writer-name'><b>${item.userNickname}</b></p>
                     </div>
                     <div class="write-time">
                         <p>2${item.time}</p>
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <hr class="inbody-hr">
             <div class="post-body">
-                <img class="post-img" src="../sources/${item.post_image}">
+                <img class="post-img" src="../sources/${item.image}">
                 <div class="post-content">
                     <p>
                         ${item.content}
@@ -41,10 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="post-info">
                     <div class="info">
-                        <p><b>${item.view_cnt}<br>조회수</b></p>
+                        <p><b>${item.viewCnt}<br>조회수</b></p>
                     </div>
                     <div class="info">
-                        <p><b>${item.comment_cnt}<br>댓글</b></p>
+                        <p><b>${item.commentCnt}<br>댓글</b></p>
                     </div>
                 </div>
             </div>

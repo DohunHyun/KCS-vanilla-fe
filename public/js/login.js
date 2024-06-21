@@ -35,7 +35,8 @@ loginBtn.addEventListener('click', () => {
         helperText.innerText = "";
 
         // 로그인 로직 추가
-        fetch('http://localhost:3001/login', {
+        // JWT 방식으로 수정 예정
+        fetch('http://localhost:8080/login', {
             method: 'POST',
             credentials: 'include',
             headers: {

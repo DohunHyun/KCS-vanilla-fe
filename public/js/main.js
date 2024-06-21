@@ -9,7 +9,8 @@ document.getElementById('header-img').addEventListener('click', () => {
 })
 
 document.getElementById('logout').addEventListener('click', () => {
-    fetch('http://localhost:3001/logout', {
+    // JWT 방식으로 수정 예정
+    fetch('http://localhost:8080/logout', {
         method: 'POST',
         credentials: 'include',
     })

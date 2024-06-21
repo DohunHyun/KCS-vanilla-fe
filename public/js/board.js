@@ -28,7 +28,7 @@ fetch("http://localhost:8080/posts")
 
 const createPostListHTML = (item) => {
     return `
-        <article class="post-box" onclick="window.location.href='/postDetail?postId=${item.id}'">
+        <article class="post-box" onclick="window.location.href='/postDetail/${item.id}'">
             <div class="post-detail">
                 <div class="post-title">${item.title}</div>
                 <div class="post-info">

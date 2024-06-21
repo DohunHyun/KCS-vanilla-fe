@@ -31,7 +31,7 @@ router.get("/postWrite", (req, res) => {
     communityController.getPostWrite(req, res);
 });
 
-router.get("/postDetail", (req, res) => {
+router.get("/postDetail/:id", (req, res) => {
     communityController.getPostDetail(req, res);
 });
 
