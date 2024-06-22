@@ -68,7 +68,7 @@ modalConfirmBtn.addEventListener('click', () => {
 
 // 닉네임 중복 체크
 let userList = "";
-fetch("http://localhost:3001/models/json/userList.json")
+fetch("http://localhost:8080/users")
                 .then( (res) => res.json() )
                 .then( (json) => json.items )
                 .then( items => userList = items );
