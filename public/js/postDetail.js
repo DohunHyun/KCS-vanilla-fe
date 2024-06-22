@@ -165,7 +165,7 @@ const init = () => {
 
     // writername 으로 user email 반환하는 함수
     function getEmailByWriterName(nickName) {
-        return fetch('http://localhost:3001/userList')
+        return fetch('http://localhost:8080/users/')
         .then( res => res.json() )
         .then( items => {    
             const writer = items.find(item => item.nickname == nickName);
@@ -289,7 +289,7 @@ const init = () => {
     const postId = new URLSearchParams(window.location.search).get('postId');
 
     const deletePost = () => {
-        fetch(`http://localhost:3001/post/${postId}`, {
+        fetch(`http://localhost:8080/posts/${postId}`, {
             method: 'DELETE',
             headers: {},
         })
@@ -299,7 +299,7 @@ const init = () => {
     }
 
     const postComment = () => {
-        fetch(`http://localhost:3001/comment/${postId}`, {
+        fetch(`http://localhost:8080/posts/${postId}/comments`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -315,7 +315,7 @@ const init = () => {
     }
 
     const deleteComment = () => {
-        fetch(`http://localhost:3001/comment/${selectedCommentId}`, {
+        fetch(`http://localhost:8080/posts/comments/${selectedCommentId}`, {
             method: 'DELETE',
             headers: {},
         })
@@ -325,7 +325,7 @@ const init = () => {
     }
 
     const putComment = () => {
-        fetch(`http://localhost:3001/comment/${postId}/${selectedCommentId}`, {
+        fetch(`http://localhost:8080/posts/comments/${selectedCommentId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
