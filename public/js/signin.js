@@ -153,7 +153,7 @@ document.getElementById('prev-btn').addEventListener('click', () => {
 })
 
 let userList = "";
-fetch("http://localhost:3001/userList")
+fetch("http://localhost:8080/users")
 .then( (res) => res.json())
 .then(res => userList = res);
 
@@ -186,7 +186,7 @@ nicknameInput.addEventListener('change', () => {
 })
 
 const sendFormData = () => {
-    fetch("http://localhost:3001/signin", {
+    fetch("http://localhost:8080/users/register", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
