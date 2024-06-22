@@ -87,7 +87,7 @@ const sendFormData = () => {
     formData.append('view_cnt', 0);
     formData.append('time', "2024-06-03");
 
-    fetch('http://localhost:3001/post', {
+    fetch('http://localhost:8080/posts/register', {
         method: 'POST',
         headers: {},
         body: formData,
