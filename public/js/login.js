@@ -35,20 +35,21 @@ loginBtn.addEventListener('click', () => {
         helperText.innerText = "";
 
         // 로그인 로직 추가
-        // JWT 방식으로 수정 예정
-        fetch('http://localhost:8080/login', {
+        fetch('http://localhost:8080/api/auth/login', {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'Origin': 'http://localhost:3000',
             },
             body: JSON.stringify({
                 email: emailInput.value,
+                password: passwordInput.value
             })
         })
-        .then(response => {
+        .then(async response => {
             if(response.ok) {
+                const data = await response.json();
+                const token = data.jwt;
+                localStorage.setItem('jwt', token);
                 location.href = '/board';
             } else {
                 alert('로그인 실패');
