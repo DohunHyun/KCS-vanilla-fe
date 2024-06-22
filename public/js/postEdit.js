@@ -76,7 +76,8 @@ document.getElementById('file').addEventListener('change', () => {
 
 const postId = new URLSearchParams(window.location.search).get('postId');
 
-fetch("http://localhost:3001/models/json/postDetail.json")
+// 게시글 불러오기
+fetch(`http://localhost:8080/posts/${postId}`)
 .then(data => data.json())
 .then(jsonData => jsonData.items)
 .then(items => {
@@ -101,7 +102,8 @@ const sendFormData = () => {
     var fileName = splitFileName[splitFileNameLength-1];
     formData.append('image', fileName);
 
-    fetch(`http://localhost:3001/post/${postId}`, {
+    // 게시글 수정
+    fetch(`http://localhost:8080/posts/${postId}`, {
         method: 'PUT',
         headers: {},
         body: formData
