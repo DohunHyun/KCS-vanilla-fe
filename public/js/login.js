@@ -28,14 +28,18 @@ passwordInput.addEventListener('keyup', () => {
     }
 });
 
-loginBtn.addEventListener('click', () => {
+form.addEventListener('submit', async function(event) {
+    event.preventDefault();
+})
+
+loginBtn.addEventListener('click', async () => {
     if(!form.checkValidity()) {
         helperText.innerText = "* 입력하신 계정 정보가 정확하지 않았습니다.";
     } else {
         helperText.innerText = "";
-
-        // 로그인 로직 추가
-        fetch('http://localhost:8080/api/auth/login', {
+        
+        // 로그인
+        const response = await fetch('http://localhost:8080/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,15 +49,15 @@ loginBtn.addEventListener('click', () => {
                 password: passwordInput.value
             })
         })
-        .then(async response => {
-            if(response.ok) {
-                const data = await response.json();
-                const token = data.jwt;
-                localStorage.setItem('jwt', token);
-                location.href = '/board';
-            } else {
-                alert('로그인 실패');
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(errorMessage => { throw new Error(errorMessage); });
             }
+            alert("로그인 성공!");
+            location.href = '/board';
         })
+        .catch(error => {
+            alert(error.message);
+        });
     }
 })
