@@ -152,14 +152,13 @@ document.getElementById('prev-btn').addEventListener('click', () => {
     location.href='/login';
 })
 
-let userList = "";
-fetch("http://localhost:8080/users")
-.then( (res) => res.json())
-.then(res => userList = res);
-
-const checkEmail = (input) => {
-    return userList.map((item) => item.email)
-        .find(email=>email === input);
+const checkEmail = async (input) => {
+    const response = await fetch(`http://localhost:8080/users/check-email?email=${input}`);
+    if(response.status === 409) {
+        return true;
+    } else if(response.status === 200) {
+        return false;
+    }
 }
 
 emailInput.addEventListener('change', () => {
@@ -171,13 +170,17 @@ emailInput.addEventListener('change', () => {
     }
 })
 
-const checkNickname = (input) => {
-    return userList.map((item) => item.nickName)
-        .find(nickname => nickname === input);
+const checkNickname = async (input) => {
+    const response = await fetch(`http://localhost:8080/users/check-nickname?nickname=${input}`);
+    if(response.status === 409) {
+        return true;
+    } else if(response.status === 200) {
+        return false;
+    }
 }
 
-nicknameInput.addEventListener('change', () => {
-    if(checkNickname(nicknameInput.value)) {
+nicknameInput.addEventListener('change', async () => {
+    if(await checkNickname(nicknameInput.value)) {
         nicknameHelper.innerText = "* 중복된 닉네임 입니다.";
         nicknameFlag = false;
     } else {
