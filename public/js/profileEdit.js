@@ -68,10 +68,15 @@ modalConfirmBtn.addEventListener('click', () => {
 
 // 닉네임 중복 체크
 let userList = "";
-fetch("http://localhost:8080/users")
-                .then( (res) => res.json() )
-                .then( (json) => json.items )
-                .then( items => userList = items );
+fetch("http://localhost:8080/users", {
+    method: "GET",
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+    }
+})
+.then( (res) => res.json() )
+.then( (json) => json.items )
+.then( items => userList = items );
 
 const checkNickname = (input) => {
     return userList.map((item) => item.nickName)

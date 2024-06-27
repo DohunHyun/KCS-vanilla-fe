@@ -89,7 +89,9 @@ const sendFormData = () => {
 
     fetch('http://localhost:8080/posts/register', {
         method: 'POST',
-        headers: {},
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+        },
         body: formData,
     })
     .then((response) => response.json())

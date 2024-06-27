@@ -2,7 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const postId = window.location.pathname.split('/')[2];
 
     // 게시글 내용 불러오기
-    fetch(`http://localhost:8080/posts/${postId}`)
+    fetch(`http://localhost:8080/posts/${postId}`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+        }
+    })
         .then( res => res.json() )
         .then( items => {
             const container = document.getElementById('post');
@@ -52,7 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 댓글 정보 불러오기
-    fetch( `http://localhost:8080/posts/${postId}/comments` )
+    fetch( `http://localhost:8080/posts/${postId}/comments`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+        }
+    })
     .then( res => res.json() )
     .then( items => {
         createComment(items.filter(item => item.postId == postId));
@@ -165,7 +175,12 @@ const init = () => {
 
     // writername 으로 user email 반환하는 함수
     function getEmailByWriterName(nickName) {
-        return fetch('http://localhost:8080/users')
+        return fetch('http://localhost:8080/users', {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+            }
+        })
         .then( res => res.json() )
         .then( items => {    
             const writer = items.find(item => item.nickname == nickName);
@@ -291,7 +306,9 @@ const init = () => {
     const deletePost = () => {
         fetch(`http://localhost:8080/posts/${postId}`, {
             method: 'DELETE',
-            headers: {},
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+            },
         })
         .then((response) => response.json())
         .then((json) => console.log(json))
@@ -301,7 +318,10 @@ const init = () => {
     const postComment = () => {
         fetch(`http://localhost:8080/posts/${postId}/comments`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+            },
             body: JSON.stringify({
                 'postId': postId,
                 'content': commentInput.value,
@@ -317,7 +337,9 @@ const init = () => {
     const deleteComment = () => {
         fetch(`http://localhost:8080/posts/comments/${selectedCommentId}`, {
             method: 'DELETE',
-            headers: {},
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+            }
         })
         .then((response) => response.json())
         .then((json) => console.log(json))
@@ -327,7 +349,11 @@ const init = () => {
     const putComment = () => {
         fetch(`http://localhost:8080/posts/comments/${selectedCommentId}`, {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+
+            },
             body: JSON.stringify({
                 'content': commentInput.value,
                 'time': "2024-04-20 00:00:00",

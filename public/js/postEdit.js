@@ -77,7 +77,12 @@ document.getElementById('file').addEventListener('change', () => {
 const postId = new URLSearchParams(window.location.search).get('postId');
 
 // 게시글 불러오기
-fetch(`http://localhost:8080/posts/${postId}`)
+fetch(`http://localhost:8080/posts/${postId}`, {
+    method: "GET",
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+    }
+})
 .then(data => data.json())
 .then(jsonData => jsonData.items)
 .then(items => {
@@ -105,7 +110,9 @@ const sendFormData = () => {
     // 게시글 수정
     fetch(`http://localhost:8080/posts/${postId}`, {
         method: 'PUT',
-        headers: {},
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+        },
         body: formData
     })
     .then((response) => response.json())
