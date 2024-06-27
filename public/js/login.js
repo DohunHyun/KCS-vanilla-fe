@@ -41,20 +41,24 @@ loginBtn.addEventListener('click', async () => {
         // 로그인
         const response = await fetch('http://localhost:8080/api/auth/login', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'test'
             },
             body: JSON.stringify({
                 email: emailInput.value,
                 password: passwordInput.value
             })
         })
-        .then(response => {
+        .then(async response => {
             if (!response.ok) {
                 return response.text().then(errorMessage => { throw new Error(errorMessage); });
             }
+            const data = await response.json();
+            localStorage.setItem('jwtToken', data.jwt);
             alert("로그인 성공!");
-            location.href = '/board';
+            // location.href = '/board';
         })
         .catch(error => {
             alert(error.message);

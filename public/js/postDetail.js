@@ -165,7 +165,7 @@ const init = () => {
 
     // writername 으로 user email 반환하는 함수
     function getEmailByWriterName(nickName) {
-        return fetch('http://localhost:8080/users/')
+        return fetch('http://localhost:8080/users')
         .then( res => res.json() )
         .then( items => {    
             const writer = items.find(item => item.nickname == nickName);
@@ -286,7 +286,7 @@ const init = () => {
         }
     }
 
-    const postId = new URLSearchParams(window.location.search).get('postId');
+    const postId = window.location.pathname.split('/')[2];
 
     const deletePost = () => {
         fetch(`http://localhost:8080/posts/${postId}`, {
@@ -311,7 +311,7 @@ const init = () => {
         })
         .then((response) => response.json())
         .then((json) => console.log(json))
-        .then(window.location.href = `/postDetail?postId=${postId}`);
+        // .then(window.location.href = `/postDetail/${postId}`);
     }
 
     const deleteComment = () => {
@@ -321,7 +321,7 @@ const init = () => {
         })
         .then((response) => response.json())
         .then((json) => console.log(json))
-        .then(window.location.href = `/postDetail?postId=${postId}`);
+        .then(window.location.href = `/postDetail/${postId}`);
     }
 
     const putComment = () => {
@@ -335,7 +335,7 @@ const init = () => {
         })
         .then((response) => response.json())
         .then((json) => console.log(json))
-        .then(window.location.href = `/postDetail?postId=${postId}`);
+        .then(window.location.href = `/postDetail/${postId}`);
     }
 }
 

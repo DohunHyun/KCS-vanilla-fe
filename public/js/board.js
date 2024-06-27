@@ -18,10 +18,14 @@ writeBtn.addEventListener('click', () => {
 })
 
 // Post 리스트 가져오기
-fetch("http://localhost:8080/posts")
+fetch("http://localhost:8080/posts", {
+    method: "GET",
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+    }
+})
     .then( res => res.json() )
     .then( item => {
-        console.log(item);
         const container = document.getElementById('post-list');
         container.innerHTML = item.map((i) => createPostListHTML(i)).join("");
     });
