@@ -82,10 +82,10 @@ const sendFormData = () => {
     formData.append('content', contentInput.value);
     // 사진이 없을땐 append 하지 않기. 그래야 불러올때 오류 안남
     formData.append('image', "image");
-    formData.append('like_cnt', 0);
-    formData.append('comment_cnt', 0);
-    formData.append('view_cnt', 0);
-    formData.append('time', "2024-06-03");
+    formData.append('likeCnt', 0);
+    formData.append('commentCnt', 0);
+    formData.append('viewCnt', 0);
+    formData.append('time', "2024-07-02T13:23:00");
 
     fetch('http://localhost:8080/posts/register', {
         method: 'POST',
