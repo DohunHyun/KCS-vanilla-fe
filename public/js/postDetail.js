@@ -161,19 +161,18 @@ const init = () => {
 
     // 게시글 삭제 버튼
     postDeleteBtn.addEventListener('click', () => {
-        // 로그인 정보와 게시글 작성자 비교
-        getEmailByWriterName(writerName.innerText)
-        .then(email => {
-            if(getCookie('isLogin') == 'true' && getCookie('userEmail') == email) {
-                postDeleteModal.classList.add('on');
-            } else {
-                // 애초에 권한 있는 사람만 버튼이 보이게 해야하는거 아닐까
-                alert('게시글 작성자가 아닙니다.');
+        fetch(`http://localhost:8080/posts/check-writer/post/${postId}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
             }
-        })
-        .catch(error => {
-            alert('게시글 작성자가 아닙니다.');
-        })
+        }).then(res => {
+            if(!res.ok) {
+                alert('게시글 작성자가 아닙니다.');
+            } else {
+                postDeleteModal.classList.add('on');
+            }
+        });
     })
 
     // writername 으로 user email 반환하는 함수
