@@ -8,11 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
             Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
         }
     })
-        .then( res => res.json() )
-        .then( items => {
-            const container = document.getElementById('post');
-            container.innerHTML = createPostDetail(items);
-        });
+    .then( res => res.json() )
+    .then( items => {
+        const container = document.getElementById('post');
+        container.innerHTML = createPostDetail(items);
+        loadComment();
+    });
 
     const createPostDetail = item => {
         return `
@@ -57,23 +58,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 댓글 정보 불러오기
-    fetch( `http://localhost:8080/posts/${postId}/comments`, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
-        }
-    })
-    .then( res => res.json() )
-    .then( items => {
-        createComment(items.filter(item => item.postId == postId));
-    }).then(()=>init());
+    function loadComment() {
+        fetch( `http://localhost:8080/posts/${postId}/comments`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+            }
+        })
+        .then( res => res.json() )
+        .then( items => {
+            createComment(items.filter(item => item.postId == postId));
+        }).then(()=>init());
 
-    const createComment = (comments) => {
-        comments.forEach(element => {
-            const container = document.getElementById('comment-list');
-            container.innerHTML += makeCommentTag(element);
-        });
-    };
+        const createComment = (comments) => {
+            comments.forEach(element => {
+                const container = document.getElementById('comment-list');
+                container.innerHTML += makeCommentTag(element);
+            });
+        };
+    }
 
     const makeCommentTag = (item) => {
         return `
@@ -140,20 +143,20 @@ const init = () => {
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
+    // 게시글 수정 버튼
     postModifyBtn.addEventListener('click', () => {
-        // 로그인 정보와 게시글 작성자 비교
-        getEmailByWriterName(writerName.innerText)
-        .then(email => {
-            if(getCookie('isLogin') == 'true' && getCookie('userEmail') == email) {
-                location.href = `/postEdit?postId=${postId}`;
-            } else {
-                // 애초에 권한 있는 사람만 버튼이 보이게 해야하는거 아닐까
-                alert('게시글 작성자가 아닙니다.');
+        fetch(`http://localhost:8080/posts/check-writer/post/${postId}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
             }
-        })
-        .catch(error => {
-            alert('게시글 작성자가 아닙니다.');
-        })
+        }).then(res => {
+            if(!res.ok) {
+                alert('게시글 작성자가 아닙니다.');
+            } else {
+                location.href = `/postEdit?postId=${postId}`;
+            }
+        });
     })
 
     // 게시글 삭제 버튼
