@@ -84,15 +84,11 @@ fetch(`http://localhost:8080/posts/${postId}`, {
     }
 })
 .then(data => data.json())
-.then(jsonData => jsonData.items)
-.then(items => {
-    items.filter(item=>item.postId == postId)
-        .map(item => {
-            titleInput.value = item.title;
-            contentInput.value = item.postContent;
-            // 파일도 해야함.
-            document.getElementById('file-name').innerText = item.postPic;
-        })
+.then(item => {
+    titleInput.value = item.title;
+    contentInput.value = item.content;
+    // 파일도 해야함.
+    document.getElementById('file-name').innerText = item.image;
 });
 
 const sendFormData = () => {
@@ -115,6 +111,10 @@ const sendFormData = () => {
         },
         body: formData
     })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+    .then((response) => {
+        if(response.ok) {
+            location.href = `/postDetail/${postId}`;
+        }
+    });
+    
 }

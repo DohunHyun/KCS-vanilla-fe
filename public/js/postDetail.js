@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 댓글 정보 불러오기
     function loadComment() {
-        fetch( `http://localhost:8080/posts/${postId}/comments`, {
+        fetch( `http://localhost:8080/posts/comments/${postId}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const makeCommentTag = (item) => {
         return `
             <div id="comment-${item.id}" class="comment">
+                <div style="display:none">${item.id}</div>
                 <div class="comment-info">
                     <img class="writer-img" src="${item.userImage}">
                     <div class="comment-text">
@@ -175,25 +176,6 @@ const init = () => {
         });
     })
 
-    // writername 으로 user email 반환하는 함수
-    function getEmailByWriterName(nickName) {
-        return fetch('http://localhost:8080/users', {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
-            }
-        })
-        .then( res => res.json() )
-        .then( items => {    
-            const writer = items.find(item => item.nickname == nickName);
-            if(writer) {
-                return writer.email;
-            } else {
-                throw new Error('작성자를 찾을 수 없습니다.');
-            }
-        });
-    }
-
     postModalCancelBtn.addEventListener('click', () => {
         postDeleteModal.classList.remove('on');
     })
@@ -211,29 +193,28 @@ const init = () => {
     // 댓글 수정 버튼
     Array.from(commentModifyBtn).forEach( item => {
         item.addEventListener('click', () => {
-            let commentText = item.parentNode.parentNode
-            .previousElementSibling.lastElementChild;
-            let writerName = commentText.firstElementChild.firstElementChild.firstElementChild.firstElementChild.innerText;
-            getEmailByWriterName(writerName)
-            .then(email => {
-                if(getCookie('isLogin') == 'true' && getCookie('userEmail') == email) {
-                    var prevText = commentText
-                                    .lastElementChild.firstElementChild.innerText;
+            let commentId = item.parentNode.parentNode.parentNode.firstElementChild.innerText;
+            fetch(`http://localhost:8080/posts/check-writer/comment/${commentId}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
+                }
+            }).then(res => {
+                if(!res.ok) {
+                    alert('댓글 작성자가 아닙니다.');
+                } else {
+                    let commentText = item.parentNode.parentNode.previousElementSibling.lastElementChild;
+                    var prevText = commentText.lastElementChild.firstElementChild.innerText;
                     document.getElementById('comment-input').value = prevText;
                     document.getElementById('comment-input').focus();
 
                     commentBtn.style.display = 'none';
                     commentModifyFetchBtn.style.display = 'block';
 
-                    selectedCommentId = item.parentNode.parentNode.parentNode.id.split("-")[1];
-                } else {
-                    // 애초에 권한 있는 사람만 버튼이 보이게 해야하는거 아닐까
-                    alert('댓글 작성자가 아닙니다.');
+                    // selectedCommentId = item.parentNode.parentNode.parentNode.id.split("-")[1];
+                    selectedCommentId = commentId;
                 }
-            })
-            .catch(error => {
-                alert('댓글 작성자가 아닙니다.');
-            })
+            });
         })
     })
 
@@ -247,23 +228,20 @@ const init = () => {
     // 댓글 삭제 버튼
     Array.from(commentDeleteBtn).forEach( item => {
         item.addEventListener('click', () => {
-            let commentText = item.parentNode.parentNode
-            .previousElementSibling.lastElementChild;
-            let writerName = commentText.firstElementChild.firstElementChild.firstElementChild.firstElementChild.innerText;
-            getEmailByWriterName(writerName)
-            .then(email => {
-                if(getCookie('isLogin') == 'true' && getCookie('userEmail') == email) {
-                    commentDeleteModal.classList.add('on');
-                    selectedCommentId = item.parentNode.parentNode.parentNode.id.split("-")[1];
-                    console.log(selectedCommentId);
-                } else {
-                    // 애초에 권한 있는 사람만 버튼이 보이게 해야하는거 아닐까
-                    alert('게시글 작성자가 아닙니다.');
+            let commentId = item.parentNode.parentNode.parentNode.firstElementChild.innerText;
+            fetch(`http://localhost:8080/posts/check-writer/comment/${commentId}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
                 }
-            })
-            .catch(error => {
-                alert('댓글 작성자가 아닙니다.');
-            })
+            }).then(res => {
+                if(!res.ok) {
+                    alert('댓글 작성자가 아닙니다.');
+                } else {
+                    selectedCommentId = commentId;
+                    commentDeleteModal.classList.add('on');
+                }
+            });
         })
     })
 
@@ -314,11 +292,11 @@ const init = () => {
         })
         .then((response) => response.json())
         .then((json) => console.log(json))
-        .then(window.location.href = '/board');
+        .then(window.location.href = `/postDetail/${postId}`);
     }
 
     const postComment = () => {
-        fetch(`http://localhost:8080/posts/${postId}/comments`, {
+        fetch(`http://localhost:8080/posts/comments/${postId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -327,13 +305,15 @@ const init = () => {
             body: JSON.stringify({
                 'postId': postId,
                 'content': commentInput.value,
-                'email': getCookie('userEmail'),
-                'time': "2024-04-20 00:00:00"
+                'time': "2024-04-20T00:00:00"
             })
         })
-        .then((response) => response.json())
-        .then((json) => console.log(json))
-        // .then(window.location.href = `/postDetail/${postId}`);
+        .then((response) => {
+            if(response.ok) {
+                alert("댓글이 등록되었습니다.");
+                location.href = `/postDetail/${postId}`;
+            }
+        })
     }
 
     const deleteComment = () => {
@@ -358,7 +338,7 @@ const init = () => {
             },
             body: JSON.stringify({
                 'content': commentInput.value,
-                'time': "2024-04-20 00:00:00",
+                'time': "2024-07-08T00:00:00",
             })
         })
         .then((response) => response.json())
