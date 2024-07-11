@@ -39,7 +39,7 @@ loginBtn.addEventListener('click', async () => {
         helperText.innerText = "";
         
         // 로그인
-        const response = await fetch('http://localhost:8080/api/auth/login', {
+        const response = await fetch('http://ec2-54-180-235-103.ap-northeast-2.compute.amazonaws.com:8080/api/auth/login', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -58,7 +58,7 @@ loginBtn.addEventListener('click', async () => {
             const data = await response.json();
             localStorage.setItem('jwtToken', data.jwt);
             alert("로그인 성공!");
-            // location.href = '/board';
+            location.href = '/board';
         })
         .catch(error => {
             alert(error.message);
